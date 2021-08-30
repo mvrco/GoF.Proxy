@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>03. Context and scope - Gang of Four - Proxy</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "03. Context and scope";
+    var mkdocs_page_input_path = "03. Context and scope.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Gang of Four - Proxy</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../01.%20Introduction%20and%20Goals/">01. Introduction and Goals</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../02.%20Architecture%20Constraints/">02. Architecture Constraints</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">03. Context and scope</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#business-context">Business Context</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#technical-context">Technical Context</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04.%20Solution%20Strategy/">04. Solution Strategy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../05.%20Building%20Block%20View/">05. Building Block View</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../06.%20Runtime%20View/">06. Runtime View</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../07.%20Deployment%20View/">07. Deployment View</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../08.%20Crosscutting%20Concepts/">08. Crosscutting Concepts</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../09.%20Architecture%20Decisions/">09. Architecture Decisions</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../10.%20Quality%20Requirements/">10. Quality Requirements</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../11.%20Risks%20and%20Technical%20Debt/">11. Risks and Technical Debt</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../12.%20Glossary/">12. Glossary</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../About%20arc42/">About arc42</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Gang of Four - Proxy</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>03. Context and scope</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/mvrco/GoF.Proxy/edit/master/docs/03. Context and scope.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="system-scope-and-context">System Scope and Context</h1>
+<p><strong>Contents.</strong></p>
+<p>System scope and context - as the name suggests - delimits your system
+(i.e. your scope) from all its communication partners (neighboring
+systems and users, i.e. the context of your system). It thereby
+specifies the external interfaces.</p>
+<p>If necessary, differentiate the business context (domain specific inputs
+and outputs) from the technical context (channels, protocols, hardware).</p>
+<p><strong>Motivation.</strong></p>
+<p>The domain interfaces and technical interfaces to communication partners
+are among your system’s most critical aspects. Make sure that you
+completely understand them.</p>
+<p><strong>Form.</strong></p>
+<p>Various options:</p>
+<ul>
+<li>
+<p>Context diagrams</p>
+</li>
+<li>
+<p>Lists of communication partners and their interfaces.</p>
+</li>
+</ul>
+<h2 id="business-context">Business Context</h2>
+<p><strong>Contents.</strong></p>
+<p>Specification of <strong>all</strong> communication partners (users, IT-systems, …)
+with explanations of domain specific inputs and outputs or interfaces.
+Optionally you can add domain specific formats or communication
+protocols.</p>
+<p><strong>Motivation.</strong></p>
+<p>All stakeholders should understand which data are exchanged with the
+environment of the system.</p>
+<p><strong>Form.</strong></p>
+<p>All kinds of diagrams that show the system as a black box and specify
+the domain interfaces to communication partners.</p>
+<p>Alternatively (or additionally) you can use a table. The title of the
+table is the name of your system, the three columns contain the name of
+the communication partner, the inputs, and the outputs.</p>
+<p><strong>&lt;Diagram or Table&gt;</strong></p>
+<p><strong>&lt;optionally: Explanation of external domain interfaces&gt;</strong></p>
+<h2 id="technical-context">Technical Context</h2>
+<p><strong>Contents.</strong></p>
+<p>Technical interfaces (channels and transmission media) linking your
+system to its environment. In addition a mapping of domain specific
+input/output to the channels, i.e. an explanation with I/O uses which
+channel.</p>
+<p><strong>Motivation.</strong></p>
+<p>Many stakeholders make architectural decision based on the technical
+interfaces between the system and its context. Especially infrastructure
+or hardware designers decide these technical interfaces.</p>
+<p><strong>Form.</strong></p>
+<p>E.g. UML deployment diagram describing channels to neighboring systems,
+together with a mapping table showing the relationships between channels
+and input/output.</p>
+<p><strong>&lt;Diagram or Table&gt;</strong></p>
+<p><strong>&lt;optionally: Explanation of technical interfaces&gt;</strong></p>
+<p><strong>&lt;Mapping Input/Output to Channels&gt;</strong></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../04.%20Solution%20Strategy/" class="btn btn-neutral float-right" title="04. Solution Strategy">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../02.%20Architecture%20Constraints/" class="btn btn-neutral" title="02. Architecture Constraints"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/mvrco/GoF.Proxy/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../02.%20Architecture%20Constraints/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../04.%20Solution%20Strategy/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
