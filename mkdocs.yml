@@ -1,0 +1,6 @@
+site_name: 'Gang of Four - Proxy'
+repo_url: https://github.com/mvrco/GoF.Proxy
+
+theme:
+    name: readthedocs
+    
